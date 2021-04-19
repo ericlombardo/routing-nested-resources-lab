@@ -5,7 +5,7 @@ class SongsController < ApplicationController
       if !@songs.empty? # returns song if present
         @songs
       else  # directs to artist index with flash message
-        flash.alert = "No new songs"
+        flash.alert = "Artist not found"
         redirect_to artists_path
       end
     else  # if no present value, #=> '/posts' views
@@ -15,10 +15,10 @@ class SongsController < ApplicationController
 
   def show
     if params[:artist_id]
-      if @song = Song.find_by_artist_id(params[:artist_id])
+      if @song = Song.find_by_id(params[:id])
         @song
       else
-        flash[:alert] = "No song found"
+        flash[:alert] = "Song not found"
         redirect_to artist_songs_path(params[:artist_id])
       end
     else
